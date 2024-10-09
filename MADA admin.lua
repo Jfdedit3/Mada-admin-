@@ -1,38 +1,38 @@
---[[par mada
+--[[ by mada
 
-Mada admin v1]]
+Mada admin v1 ]]
 
 local admin = loadstring(game:HttpGet("https://pastebin.com/raw/WPq8Cx9f"))():create({
     ["name"] = "Mada admin"; 
-    ["prefix"] = ";"; -- préfixe !!! 
-    ["key"] = Enum.KeyCode.Semicolon; -- code de la touche préfixe !!! (https://create.roblox.com/docs/reference/engine/enums/KeyCode)
+    ["prefix"] = ";"; -- prefix!!! 
+    ["key"] = Enum.KeyCode.Semicolon; -- key code for the prefix!!! (https://create.roblox.com/docs/reference/engine/enums/KeyCode)
 })
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
--- Commande pour téléporter l'administrateur à un joueur
+-- Command to teleport the administrator to a player
 admin:addcmd({"view"}, function(targetUser)
     local targetPlayer = game:GetService("Players"):FindFirstChild(targetUser)
     if targetPlayer and targetPlayer.Character then
         local camera = workspace.CurrentCamera
         camera.CameraSubject = targetPlayer.Character:FindFirstChild("Humanoid")
         camera.CFrame = targetPlayer.Character.PrimaryPart.CFrame
-        admin:system("Vous êtes maintenant en vue de " .. targetPlayer.DisplayName)
+        admin:system("You are now viewing " .. targetPlayer.DisplayName)
     else
-        admin:system("Utilisateur non trouvé : " .. targetUser)
+        admin:system("User not found: " .. targetUser)
     end
 end)
 
--- Commande pour changer la gravité de l'administrateur
+-- Command to change the administrator's gravity
 admin:addcmd({"gravity"}, function(value)
-    local gravity = tonumber(value) or 196.2 -- valeur par défaut
+    local gravity = tonumber(value) or 196.2 -- default value
     workspace.Gravity = gravity
-    admin:system("La gravité a été changée à " .. gravity .. ".")
+    admin:system("Gravity has been changed to " .. gravity .. ".")
 end)
 
--- Commande pour rendre l'administrateur invisible
+-- Command to make the administrator invisible
 admin:addcmd({"invisible"}, function()
     character.HumanoidRootPart.Transparency = 1
     for _, part in ipairs(character:GetChildren()) do
@@ -40,10 +40,10 @@ admin:addcmd({"invisible"}, function()
             part.Transparency = 1
         end
     end
-    admin:system("Vous êtes maintenant invisible.")
+    admin:system("You are now invisible.")
 end)
 
--- Commande pour rendre l'administrateur visible
+-- Command to make the administrator visible
 admin:addcmd({"visible"}, function()
     character.HumanoidRootPart.Transparency = 0
     for _, part in ipairs(character:GetChildren()) do
@@ -51,45 +51,45 @@ admin:addcmd({"visible"}, function()
             part.Transparency = 0
         end
     end
-    admin:system("Vous êtes maintenant visible.")
+    admin:system("You are now visible.")
 end)
 
--- Commande pour exécuter un script à partir d'une URL
+-- Command to run a script from a URL
 admin:addcmd({"run"}, function(url)
     if url and url:match("^https?://") then
         local success, err = pcall(function()
             loadstring(game:HttpGet(url))()
         end)
         if success then
-            admin:system("Le script a été exécuté avec succès.")
+            admin:system("The script was executed successfully.")
         else
-            admin:system("Erreur lors de l'exécution du script : " .. err)
+            admin:system("Error executing the script: " .. err)
         end
     else
-        admin:system("Veuillez fournir une URL valide.")
+        admin:system("Please provide a valid URL.")
     end
 end)
 
--- Commande pour activer le vol
+-- Command to enable flight
 admin:addcmd({"fly"}, function()
     local success, err = pcall(function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Jfdedit3/Jfdedit3/refs/heads/main/Fly%20script%20by%20chatgpt"))()
     end)
     if success then
-        admin:system("Le script de vol a été exécuté avec succès.")
+        admin:system("The flight script was executed successfully.")
     else
-        admin:system("Erreur lors de l'exécution du script de vol : " .. err)
+        admin:system("Error executing the flight script: " .. err)
     end
 end)
 
--- Commande pour changer la vitesse de marche de l'administrateur
+-- Command to change the administrator's walking speed
 admin:addcmd({"speed", "ws", "walkspeed"}, function(value)
-    local speed = tonumber(value) or 16 -- vitesse par défaut
+    local speed = tonumber(value) or 16 -- default speed
     humanoid.WalkSpeed = speed
-    admin:system("Votre vitesse de marche a été changée à " .. speed .. ".")
+    admin:system("Your walking speed has been changed to " .. speed .. ".")
 end)
 
--- Commande pour rejoin le jeu
+-- Command to rejoin the game
 admin:addcmd({"rj", "rejoin"}, function()
     local success, err = pcall(function()
         game:GetService("TeleportService"):Teleport(game.PlaceId, player)
@@ -97,28 +97,28 @@ admin:addcmd({"rj", "rejoin"}, function()
     if success then
         admin:system("Rejoining the game...")
     else
-        admin:system("Erreur lors de la tentative de rejoindre le jeu : " .. err)
+        admin:system("Error attempting to rejoin the game: " .. err)
     end
 end)
 
--- Commande pour quitter le jeu
+-- Command to exit the game
 admin:addcmd({"exit", "ex"}, function()
-    admin:system("Vous quittez le jeu.")
+    admin:system("You are exiting the game.")
     game:Shutdown()
 end)
 
--- Notifications des commandes disponibles
+-- Notifications of available commands
 local function notifyCommands()
     local commands = {
-        ";exit - Quitte le jeu.",
-        ";fly - Active le vol pour l'administrateur (uniquement pour PC, appuyez sur E pour activer le vol).",
-        ";gravity <value> - Change la gravité pour l'administrateur.",
-        ";invisible - Rend l'administrateur invisible.",
-        ";run <url> - Exécute un script à partir de l'URL fournie.",
-        ";say <message> - Affiche un message dans le chat.",
-        ";speed <value> ou ;ws <value> ou ;walkspeed <value> - Change la vitesse de marche de l'administrateur.",
-        ";view <user> - Téléporte l'administrateur à un joueur spécifié.",
-        ";visible - Rend l'administrateur visible."
+        ";exit - Exits the game.",
+        ";fly - Enables flight for the administrator (PC only, press E to activate flight).",
+        ";gravity <value> - Changes gravity for the administrator.",
+        ";invisible - Makes the administrator invisible.",
+        ";run <url> - Executes a script from the provided URL.",
+        ";say <message> - Displays a message in the chat.",
+        ";speed <value> or ;ws <value> or ;walkspeed <value> - Changes the administrator's walking speed.",
+        ";view <user> - Teleports the administrator to a specified player.",
+        ";visible - Makes the administrator visible."
     }
 
     for _, command in ipairs(commands) do
@@ -126,5 +126,5 @@ local function notifyCommands()
     end
 end
 
--- Appeler la fonction pour notifier les commandes disponibles
+-- Call the function to notify the available commands
 notifyCommands()
