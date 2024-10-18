@@ -117,7 +117,7 @@ local function notifyCommands()
         ";run <url> - Executes a script from the provided URL.",
         ";say <message> - Displays a message in the chat.",
         ";speed <value> or ;ws <value> or ;walkspeed <value> - Changes the administrator's walking speed.",
-        ";view <user> - Teleports the administrator to a specified player.",
+        ";view <user> - Spec a specified player.",
         ";visible - Makes the administrator visible."
     }
 
